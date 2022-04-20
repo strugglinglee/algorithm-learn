@@ -32,6 +32,30 @@ module.exports = {
     ],
     sidebar: [
       {
+        title: "数据结构",
+        path: "/数据结构.md",
+      },
+      {
+        title: "数组的应用",
+        path: "/数组的应用.md",
+      },
+      {
+        title: "字符串应用",
+        path: "/字符串应用.md",
+      },
+      {
+        title: "hash表",
+        path: "/hash表.md",
+      },
+      {
+        title: "链表",
+        path: "/list-node/base.md",
+      },
+      {
+        title: "时间复杂度和空间复杂度",
+        path: "/时间复杂度和空间复杂度.md",
+      },
+      {
         title: "递归",
         path: "/递归/base.md",
       },
