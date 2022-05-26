@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>算法 | 链表的处理-链表的合并及删除 | 算法学习</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/algorithm-learn/assets/css/0.styles.79878703.css" as="style"><link rel="preload" href="/algorithm-learn/assets/js/app.766c3637.js" as="script"><link rel="preload" href="/algorithm-learn/assets/js/2.350f1b92.js" as="script"><link rel="preload" href="/algorithm-learn/assets/js/11.62c8cde7.js" as="script"><link rel="prefetch" href="/algorithm-learn/assets/js/10.04a141eb.js"><link rel="prefetch" href="/algorithm-learn/assets/js/12.93b4f226.js"><link rel="prefetch" href="/algorithm-learn/assets/js/13.0afd12b0.js"><link rel="prefetch" href="/algorithm-learn/assets/js/14.3ad2e0df.js"><link rel="prefetch" href="/algorithm-learn/assets/js/15.470b7a4a.js"><link rel="prefetch" href="/algorithm-learn/assets/js/16.b8c02ade.js"><link rel="prefetch" href="/algorithm-learn/assets/js/17.1b0707cb.js"><link rel="prefetch" href="/algorithm-learn/assets/js/18.712a11cf.js"><link rel="prefetch" href="/algorithm-learn/assets/js/3.15e1f076.js"><link rel="prefetch" href="/algorithm-learn/assets/js/4.9c933e60.js"><link rel="prefetch" href="/algorithm-learn/assets/js/5.6db7add6.js"><link rel="prefetch" href="/algorithm-learn/assets/js/6.89c2b4fe.js"><link rel="prefetch" href="/algorithm-learn/assets/js/7.b0e2bad5.js"><link rel="prefetch" href="/algorithm-learn/assets/js/8.39e3c2dc.js"><link rel="prefetch" href="/algorithm-learn/assets/js/9.590de024.js">
+    <link rel="stylesheet" href="/algorithm-learn/assets/css/0.styles.79878703.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/algorithm-learn/" class="home-link router-link-active"><!----> <span class="site-name">算法学习</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/algorithm-learn/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="了解更多" class="dropdown-title"><span class="title">了解更多</span> <span class="arrow down"></span></button> <button type="button" aria-label="了解更多" class="mobile-dropdown-title"><span class="title">了解更多</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/strugglinglee" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://blog.strugglinglee.cn/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/algorithm-learn/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="了解更多" class="dropdown-title"><span class="title">了解更多</span> <span class="arrow down"></span></button> <button type="button" aria-label="了解更多" class="mobile-dropdown-title"><span class="title">了解更多</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/strugglinglee" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://blog.strugglinglee.cn/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/algorithm-learn/数据结构.html" class="sidebar-link">数据结构</a></li><li><a href="/algorithm-learn/数组的应用.html" class="sidebar-link">数组的应用</a></li><li><a href="/algorithm-learn/字符串应用.html" class="sidebar-link">字符串应用</a></li><li><a href="/algorithm-learn/hash表.html" class="sidebar-link">hash表</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>链表</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/algorithm-learn/list-node/base.html" class="sidebar-link">链表基础</a></li><li><a href="/algorithm-learn/list-node/list-instance1.html" aria-current="page" class="active sidebar-link">算法 | 链表的处理-链表的合并及删除</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/algorithm-learn/list-node/list-instance1.html#链表基础简述" class="sidebar-link">链表基础简述</a></li><li class="sidebar-sub-header"><a href="/algorithm-learn/list-node/list-instance1.html#链表的合并" class="sidebar-link">链表的合并</a></li><li class="sidebar-sub-header"><a href="/algorithm-learn/list-node/list-instance1.html#删除" class="sidebar-link">删除</a></li><li class="sidebar-sub-header"><a href="/algorithm-learn/list-node/list-instance1.html#删除问题的延伸-dummy-结点登场" class="sidebar-link">删除问题的延伸——dummy 结点登场</a></li></ul></li></ul></section></li><li><a href="/algorithm-learn/时间复杂度和空间复杂度.html" class="sidebar-link">时间复杂度和空间复杂度</a></li><li><a href="/algorithm-learn/递归/base.html" class="sidebar-link">递归</a></li><li><a href="/algorithm-learn/二分法/base.html" class="sidebar-link">二分法</a></li><li><a href="/algorithm-learn/BFS/BFS.html" class="sidebar-link">广度优先搜索</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="算法-链表的处理-链表的合并及删除"><a href="#算法-链表的处理-链表的合并及删除" class="header-anchor">#</a> 算法 | 链表的处理-链表的合并及删除</h1> <p>一直在思考，一直在尝试，什么样的学习方式是效率最高的。猛然发现，更多的时间花在了思考上面，实际投入到学习的时间少之又少。说来惭愧，学习规划做了一个又一个，好像全部完成的没有一个。总是想要给自己的学习计划做加法，现在我想做减法，给自己降低标准，或许计划更容易完成。</p> <p>目前想做一个算法刷题系列的文章，每日指定一个系列的算法题目练习。说到算法，其实学了好几次，每次都没有深入学习，而且学了一段时间就忘了。所以目前要做到的写一些文章，希望能写的更清晰明了，写完后愿意在空闲时间也拿出来看一看的那种文章。</p> <p>我觉得最好的学习方式是反复记忆，甚至变成肌肉记忆，我想尝试的学习方法正是如此，写精炼的文章，然后反复看，反复思考。</p> <blockquote><p>本文有些理念来自于 修言大佬的小册 <a href="https://juejin.cn/book/6844733800300150797" target="_blank" rel="noopener noreferrer">前端算法与数据结构面试：底层逻辑解读与大厂真题训练<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> 感兴趣的可以购买看看</p></blockquote> <p>言归正传，今天想要学习的是算法 | 链表的处理-链表的合并及删除。</p> <h2 id="链表基础简述"><a href="#链表基础简述" class="header-anchor">#</a> 链表基础简述</h2> <p>链表和数组相似，它们都是<code>有序的列表、都是线性结构（有且仅有一个前驱、有且仅有一个后继）</code>。不同点在于，链表中，数据单位的名称叫做“结点”，而结点和结点的分布，在内存中可以是离散的。</p> <h3 id="链表的结构"><a href="#链表的结构" class="header-anchor">#</a> 链表的结构</h3> <p>在链表中，每一个结点的结构都包括了两部分的内容：<strong>数据域和指针域</strong>。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token punctuation">{</span>
+    <span class="token comment">// 数据域</span>
+    <span class="token literal-property property">val</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token comment">// 指针域，指向下一个结点</span>
+    <span class="token literal-property property">next</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">val</span><span class="token operator">:</span><span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">next</span><span class="token operator">:</span> <span class="token operator">...</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>  
+</code></pre></div><h3 id="链表的创建"><a href="#链表的创建" class="header-anchor">#</a> 链表的创建</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>val <span class="token operator">=</span> val<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> node <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>  
+node<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+</code></pre></div><h3 id="dummy结点"><a href="#dummy结点" class="header-anchor">#</a> dummy结点</h3> <p>由于后文题解常用到<code>dummy 结点</code>，此处重点介绍下dummy结点的概念。</p> <p>要想访问链表中的任何一个元素，我们都得从起点结点开始，逐个访问 next，一直访问到目标结点为止。为了确保起点结点是可抵达的，我们有时会设定一个 head 指针来专门指向链表的开始位置，dummy结点就登场了。</p> <p><strong>dummy 结点</strong>是人为制造出来的第一个结点的前驱结点，这样链表中所有的结点都能确保有一个前驱结点，也就都能够用同样的逻辑来处理了。dummy 结点能够帮助我们降低链表处理过程的复杂度，处理链表时，不设 dummy 结点思路可能会打不开；设了 dummy 结点的话，就算不一定用得上，也不会出错。</p> <blockquote><p>题外话： dummy译为 n.仿制品; 沉默寡言的人; 笨蛋，蠢货; 挂名代表，傀儡  adj.假的; 摆样子的，做样品的; 挂名的; 虚设的
+所以可以看出dummy只是一个挂名代表，辅助结点，辅助我们能够访问到所有的结点</p></blockquote> <h3 id="链表的题目分类"><a href="#链表的题目分类" class="header-anchor">#</a> 链表的题目分类</h3> <p>链表的题目大致可以分为三类：</p> <ol><li>链表的处理: 合并、<strong>删除(重点)</strong>----今天学习的内容</li> <li>链表的反转及其衍生题目</li> <li>链表成环问题及其衍生题目</li></ol> <h2 id="链表的合并"><a href="#链表的合并" class="header-anchor">#</a> 链表的合并</h2> <p>任意两结点间插入一个新结点这种类型的增加操作，是链表中的重点之一。
+需要变更的是前驱结点和目标结点的 next 指针指向</p> <p>链表形态形如：node1-&gt;node2，如果要将node3插入其中形成 node1-&gt;node3-&gt;node2</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> node3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>     
+<span class="token comment">// 1. 把目标结点的 next 指针指向后置结点</span>
+node3<span class="token punctuation">.</span>next <span class="token operator">=</span> node1<span class="token punctuation">.</span>next
+<span class="token comment">// 2. 将前驱结点的 next 指针指向目标结点</span>
+node1<span class="token punctuation">.</span>next <span class="token operator">=</span> node3
+</code></pre></div><h3 id="真题应用"><a href="#真题应用" class="header-anchor">#</a> 真题应用</h3> <blockquote><p>将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有结点组成的
+输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4 输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4。</p></blockquote> <h3 id="解题思路"><a href="#解题思路" class="header-anchor">#</a> 解题思路</h3> <ol><li><strong>中心思想</strong>——处理链表的本质，是处理<strong>链表结点</strong>之间的指针关系。</li> <li>合并为一个链表，我们恰当地补齐双方之间结点 next 指针的指向关系，就能达到目的</li> <li>类似穿针引线，现在线有了，缺的是一根针</li> <li>针每次钻进扣子眼儿之前，要先比较一下它眼前的两个扣子，选择其中值较小的那个，优先把它串进去。一次串一个，直到所有的扣子都被串进一条线为止</li> <li>还要考虑两个链表长度不等的情况：若其中一个链表已经完全被串进新链表里了，而另一个链表还有剩余结点，考虑到该链表本身就是有序的，我们可以直接把它整个拼到目标链表的尾部。</li></ol> <h3 id="题解"><a href="#题解" class="header-anchor">#</a> 题解</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */</span>
+<span class="token keyword">const</span> <span class="token function-variable function">mergeTwoLists</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">l1<span class="token punctuation">,</span> l2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 定义头结点，确保链表可以被访问到</span>
+  <span class="token keyword">let</span> head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// cur 这里就是咱们那根“针”</span>
+  <span class="token keyword">let</span> cur <span class="token operator">=</span> head<span class="token punctuation">;</span>
+
+  <span class="token comment">// “针”开始在 l1 和 l2 间穿梭了</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>l1 <span class="token operator">&amp;&amp;</span> l2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 如果 l1 的结点值较小</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>l1<span class="token punctuation">.</span>val <span class="token operator">&lt;=</span> l2<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 先串起 l1 的结点</span>
+      cur<span class="token punctuation">.</span>next <span class="token operator">=</span> l1<span class="token punctuation">;</span>
+      <span class="token comment">// l1 指针向前一步</span>
+      l1 <span class="token operator">=</span> l1<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token comment">// l2 较小时，串起 l2 结点</span>
+      cur<span class="token punctuation">.</span>next <span class="token operator">=</span> l2<span class="token punctuation">;</span>
+      <span class="token comment">// l2 向前一步</span>
+      l2 <span class="token operator">=</span> l2<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// “针”在串起一个结点后，也会往前一步</span>
+    cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// 处理链表不等长的情况</span>
+  cur<span class="token punctuation">.</span>next <span class="token operator">=</span> l1 <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">?</span> l1 <span class="token operator">:</span> l2<span class="token punctuation">;</span>
+  <span class="token comment">// 返回起始结点</span>
+  <span class="token keyword">return</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="题解笔记"><a href="#题解笔记" class="header-anchor">#</a> 题解笔记</h3> <ol><li>head 作为线，cur 作为针</li> <li>cur.next 的改动 会因为引用关系 改变 head 的 next</li> <li>cur = cur.next 向前移动一步的过程 可以一步一步改变 head 的 next</li> <li>处理链表不等长的情况</li></ol> <h2 id="删除"><a href="#删除" class="header-anchor">#</a> 删除</h2> <p><strong>在涉及链表删除操作的题目中，重点不是定位目标结点，而是定位目标结点的前驱结点。</strong></p> <h3 id="真题应用-2"><a href="#真题应用-2" class="header-anchor">#</a> 真题应用</h3> <blockquote><p>给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
+输入: 1-&gt;1-&gt;2
+输出: 1-&gt;2
+示例 2:
+输入: 1-&gt;1-&gt;2-&gt;3-&gt;3
+输出: 1-&gt;2-&gt;3</p></blockquote> <h3 id="解题思路-2"><a href="#解题思路-2" class="header-anchor">#</a> 解题思路</h3> <ol><li>需要删除的目标结点的前驱结点 next 指针往后指一格</li></ol> <h3 id="题解-2"><a href="#题解-2" class="header-anchor">#</a> 题解</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */</span>
+<span class="token keyword">const</span> <span class="token function-variable function">deleteDuplicates</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">head</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 设定 cur 指针，初始位置为链表第一个结点</span>
+  <span class="token keyword">let</span> cur <span class="token operator">=</span> head<span class="token punctuation">;</span>
+  <span class="token comment">// 遍历链表</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>cur <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> cur<span class="token punctuation">.</span>next <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 若当前结点和它后面一个结点值相等（重复）</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>cur<span class="token punctuation">.</span>val <span class="token operator">===</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 删除靠后的那个结点（去重）</span>
+      cur<span class="token punctuation">.</span>next <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 若不重复，继续遍历</span>
+      cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="题解笔记-2"><a href="#题解笔记-2" class="header-anchor">#</a> 题解笔记</h3> <ol><li>while 循环判断条件：当前节点和下个节点不为空 不然继续判断也没意义</li> <li>当前节点和下个节点值比较：cur.val === cur.next.val</li> <li>继续往下遍历的方法：cur = cur.next</li></ol> <h2 id="删除问题的延伸-dummy-结点登场"><a href="#删除问题的延伸-dummy-结点登场" class="header-anchor">#</a> 删除问题的延伸——dummy 结点登场</h2> <h3 id="真题应用-3"><a href="#真题应用-3" class="header-anchor">#</a> 真题应用</h3> <blockquote><p>给定一个排序链表，删除所有含有重复数字的结点，只保留原始链表中 没有重复出现的数字。
+输入: 1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5
+输出: 1-&gt;2-&gt;5
+示例 2:
+输入: 1-&gt;1-&gt;1-&gt;2-&gt;3
+输出: 2-&gt;3</p></blockquote> <h3 id="解题思路-3"><a href="#解题思路-3" class="header-anchor">#</a> 解题思路</h3> <ol><li>链表的第一个结点，没有前驱结点，可以用 dummy 结点来解决这个问题。重复一遍：<strong>dummy 结点</strong>是人为制造出来的第一个结点的前驱结点，这样链表中所有的结点都能确保有一个前驱结点，也就都能够用同样的逻辑来处理了。dummy 结点能够帮助我们降低链表处理过程的复杂度，处理链表时，不设 dummy 结点思路可能会打不开；设了 dummy 结点的话，就算不一定用得上，也不会出错。</li> <li>由于重复的结点可能不止一个两个，我们这里需要用一个 while 循环来反复地进行重复结点的判断和删除操作。</li></ol> <h3 id="题解-3"><a href="#题解-3" class="header-anchor">#</a> 题解</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */</span>
+<span class="token keyword">const</span> <span class="token function-variable function">deleteDuplicates</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">head</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 极端情况：0个或1个结点，则不会重复，直接返回</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>head <span class="token operator">||</span> <span class="token operator">!</span>head<span class="token punctuation">.</span>next<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// dummy 登场</span>
+  <span class="token keyword">let</span> dummy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// dummy 永远指向头结点</span>
+  dummy<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
+  <span class="token comment">// cur 从 dummy 开始遍历</span>
+  <span class="token keyword">let</span> cur <span class="token operator">=</span> dummy<span class="token punctuation">;</span>
+  <span class="token comment">// 当 cur 的后面有至少两个结点时</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>cur<span class="token punctuation">.</span>next <span class="token operator">&amp;&amp;</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 对 cur 后面的两个结点进行比较</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val <span class="token operator">===</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 若值重复，则记下这个值</span>
+      <span class="token keyword">let</span> val <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
+      <span class="token comment">// 反复地排查后面的元素是否存在多次重复该值的情况</span>
+      <span class="token keyword">while</span> <span class="token punctuation">(</span>cur<span class="token punctuation">.</span>next <span class="token operator">&amp;&amp;</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val <span class="token operator">===</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 若有，则删除</span>
+        cur<span class="token punctuation">.</span>next <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 若不重复，则正常遍历</span>
+      cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 返回链表的起始结点</span>
+  <span class="token keyword">return</span> dummy<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/algorithm-learn/list-node/base.html" class="prev">
+        链表基础
+      </a></span> <span class="next"><a href="/algorithm-learn/时间复杂度和空间复杂度.html">
+        时间复杂度和空间复杂度
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/algorithm-learn/assets/js/app.766c3637.js" defer></script><script src="/algorithm-learn/assets/js/2.350f1b92.js" defer></script><script src="/algorithm-learn/assets/js/11.62c8cde7.js" defer></script>
+  </body>
+</html>
