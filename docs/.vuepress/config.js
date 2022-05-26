@@ -48,8 +48,17 @@ module.exports = {
         path: '/hash表.md',
       },
       {
-        title: '链表',
-        path: '/list-node/base.md',
+        title: "链表",
+        children: [
+          {
+            title: "链表基础",
+            path: "/list-node/base.md",
+          },
+          {
+            title: "算法 | 链表的处理-链表的合并及删除",
+            path: "/list-node/list-instance1.md",
+          },
+        ],
       },
       {
         title: '时间复杂度和空间复杂度',
